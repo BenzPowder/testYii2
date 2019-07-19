@@ -129,7 +129,7 @@ class AssetController extends Controller
             
             $model->image = UploadedFile::getInstance($model, 'image');
 
-            $image_name = $model->image.rand(1, 4000).','.$model->image->extension;
+            $image_name = $model->name.rand(1, 4000).','.$model->image->extension;
 
             $image_path = 'uploads/image/'.$image_name;
 
