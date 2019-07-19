@@ -33,7 +33,22 @@ $this->params['breadcrumbs'][] = $this->title;
             'number',
             'name',
             'create_date',
-            'image:image',
+            //'image:image',
+            [
+                'options'=>['style'=>'width:150px;'],
+                'format'=>'raw',
+                'attribute'=>'image',
+                'value'=>function($model){
+                  return Html::tag('div','',[
+                    'style'=>'width:150px;height:95px;
+                              border-top: 10px solid rgba(255, 255, 255, .46);
+                              background-image:url('.$model->image.');
+                              background-size: cover;
+                              background-position:center center;
+                              background-repeat:no-repeat;
+                              ']);
+                }
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

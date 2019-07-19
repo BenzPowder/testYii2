@@ -34,7 +34,13 @@ $this->params['breadcrumbs'][] = $this->title;
             'number',
             'name',
             'create_date',
-            'image:image',
+            //'image:image',
+            [
+                'format'=>'raw',
+                'attribute'=>'image',
+                'value'=>Html::img($model->image,['class'=>'img-thumbnail','style'=>'width:200px;'])
+            ]
+        
         ],
     ]) ?>
 

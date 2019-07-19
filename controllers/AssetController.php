@@ -129,7 +129,7 @@ class AssetController extends Controller
             
             $model->image = UploadedFile::getInstance($model, 'image');
 
-            $image_name = $model->name.rand(1, 4000).','.$model->image->extension;
+            $image_name = $model->id.rand(1, 4000);
 
             $image_path = 'uploads/image/'.$image_name;
 
@@ -157,8 +157,25 @@ class AssetController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            
+            try { 
+            $model->image = UploadedFile::getInstance($model, 'image');
+
+            $image_name = $model->id.rand(1, 4000);
+
+            $image_path = 'uploads/image/'.$image_name;
+
+            $model->image->saveAs($image_path);
+
+            $model->image = $image_path;
+
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
+
+            } catch(Exception $e) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
 
         return $this->render('update', [
